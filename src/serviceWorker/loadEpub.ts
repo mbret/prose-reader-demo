@@ -1,6 +1,6 @@
 import { loadAsync } from 'jszip'
 import { Report } from '../report'
-import { createArchiveFromText, Archive, createArchiveFromJszip } from '@prose-reader/core-streamer'
+import { createArchiveFromText, Archive, createArchiveFromJszip } from '@prose-reader/streamer'
 import localforage from 'localforage'
 import { getEpubFilenameFromUrl } from './utils'
 

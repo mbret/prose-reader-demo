@@ -16,9 +16,10 @@ export const useBookmarks = (reader: ReaderInstance | undefined, bookKey: string
             switchMap(() => reader.bookmarks.$.bookmarks$
               .pipe(
                 tap(bookmarks => {
-                  persist(bookKey, bookmarks)
+                  const importableBookmarks = reader.bookmarks.mapToImportable(bookmarks)
+                  persist(bookKey, importableBookmarks)
 
-                  Report.log(`persisted bookmarks`, bookmarks)
+                  Report.log(`persisted bookmarks`, importableBookmarks)
                 })
               ))
           )
@@ -44,7 +45,7 @@ export const useBookmarks = (reader: ReaderInstance | undefined, bookKey: string
 
 const restore = (bookKey: string) => {
   const storedBookmarks = JSON.parse(localStorage.getItem(`bookmarks`) || `{}`)
-  const restored = storedBookmarks[bookKey] as Bookmark[]
+  const restored = storedBookmarks[bookKey] || [] as Bookmark[]
 
   return restored
 }
