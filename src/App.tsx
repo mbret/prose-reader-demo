@@ -20,6 +20,7 @@ import { ReaderInstance } from './types'
 import { takeUntil } from 'rxjs'
 import { readerSettingsState, readerStateState } from './state'
 import { Report } from './report'
+import { ErrorBoundary } from './common/ErrorBoundary'
 
 export const App = () => {
   const [reader, setReader] = useState<any | undefined>(undefined)
@@ -31,9 +32,20 @@ export const App = () => {
           <ReaderContext.Provider value={reader}>
             <Router>
               <Routes>
-                <Route path="/classic/reader/:url" element={<ClassicReader onReader={setReader} />} />
+                <Route path="/classic/reader/:url" element={
+                  <ErrorBoundary>
+                    <ClassicReader onReader={setReader} />
+                  </ErrorBoundary>
+                } />
                 <Route path="/classic" element={<ClassicHome />} />
-                <Route path="/comics/reader/:url" element={<ComicsReader onReader={setReader} />} />
+                <Route
+                  path="/comics/reader/:url"
+                  element={
+                    <ErrorBoundary>
+                      <ComicsReader onReader={setReader} />
+                    </ErrorBoundary>
+                  }
+                />
                 <Route path="/comics" element={<ComicsHome />} />
                 <Route path="/" element={<Home />} />
                 <Route path="*" element={<Navigate to="/" />} />

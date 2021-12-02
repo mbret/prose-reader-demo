@@ -43,7 +43,7 @@ export const Reader = ({ onReader }: { onReader: (instance: ReaderInstance | und
     // fontScale: parseFloat(localStorage.getItem(`fontScale`) || `1`),
     // lineHeight: parseFloat(localStorage.getItem(`lineHeight`) || ``) || undefined,
     theme: undefined,
-    pageTurnAnimation: `slide`,
+    pageTurnAnimation: `fade`,
     layoutAutoResize: `container`
   })
 

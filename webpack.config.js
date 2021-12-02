@@ -38,6 +38,13 @@ module.exports = {
     ],
   },
   resolve: {
+    ...!IS_PROD && {
+      alias: {
+        // This is needed when linking libraries since we could have several react version in thoses.
+        // here we force everyone to use the one from this package
+        react: path.resolve('node_modules/react'),
+      },
+    },
     extensions: ['.tsx', '.ts', '.js'],
     fallback: {
       // https://github.com/lddubeau/saxes
