@@ -2,6 +2,7 @@ import { Reader, ComposeEnhancer } from "@prose-reader/core";
 import { bookmarksEnhancer } from "@prose-reader/enhancer-bookmarks";
 import { searchEnhancer } from "@prose-reader/enhancer-search";
 import { createHighlightsEnhancer } from "@prose-reader/enhancer-highlights";
+import { Props as ReactReaderGenericProps } from "@prose-reader/react";
 
 type AppEnhancer = ComposeEnhancer<
   typeof searchEnhancer,
@@ -10,6 +11,8 @@ type AppEnhancer = ComposeEnhancer<
 >
 
 export type ReaderInstance = Reader<AppEnhancer>
+
+export type ReactReaderProps = ReactReaderGenericProps<AppEnhancer>
 
 declare global {
   interface Window {

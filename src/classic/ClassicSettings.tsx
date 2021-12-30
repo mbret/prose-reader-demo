@@ -9,9 +9,11 @@ import { useRecoilValue } from 'recoil';
 import { readerSettingsState } from '../state';
 import { ArrowDownIcon, ArrowUpIcon, ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons';
 
+type Theme = Parameters<Reader[`theme`][`set`]>[0]
+
 export const ClassicSettings = memo(({ reader, open, onExit }: { reader: Reader, open: boolean, onExit: () => void }) => {
-  const [theme, setTheme] = useState<string>(reader.getTheme() || `default`)
-  const readerSettings = useRecoilValue(readerSettingsState)
+  const [theme, setTheme] = useState<Theme>(reader.theme.get() || `publisher`)
+  const readerSettings = useRecoilValue(readerSettingsState) as any
   const [fontScaleSliderValue, setFontScaleSliderValue] = useState(1)
   const [verticalMarginSliderValue, setVerticalMarginSliderValue] = useState(0)
   const [horizontalMarginSliderValue, setHorizontalMarginSliderValue] = useState(0)
@@ -93,16 +95,12 @@ export const ClassicSettings = memo(({ reader, open, onExit }: { reader: Reader,
       </FormControl>
       <FormControl as="fieldset" mt={4}>
         <FormLabel as="legend">Theme</FormLabel>
-        <RadioGroup defaultValue="default" onChange={value => {
+        <RadioGroup defaultValue="default" onChange={(value: Theme) => {
           setTheme(value)
-          if (value === `default`) {
-            reader.setTheme(undefined)
-          } else {
-            reader.setTheme(value as 'night')
-          }
+          reader.theme.set(value)
         }} value={theme}>
           <HStack spacing="12px">
-            <Radio value="default">default (publisher)</Radio>
+            <Radio value="publisher">default (publisher)</Radio>
             <Radio value="sepia">sepia</Radio>
             <Radio value="bright">bright</Radio>
             <Radio value="night">night</Radio>

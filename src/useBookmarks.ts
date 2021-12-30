@@ -21,7 +21,8 @@ export const useBookmarks = (reader: ReaderInstance | undefined, bookKey: string
 
                   Report.log(`persisted bookmarks`, importableBookmarks)
                 })
-              ))
+              )
+            )
           )
           .subscribe()
 

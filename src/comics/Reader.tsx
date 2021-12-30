@@ -92,10 +92,7 @@ export const Reader = ({ onReader }: { onReader: (instance: ReaderInstance | und
         {readerLoadOptions && (
           <ReactReader
             manifest={manifest}
-            onReader={a => {
-              // a.pro
-              onReader(a)
-            }}
+            onReader={onReader}
             onReady={onReady}
             loadOptions={readerLoadOptions}
             onPaginationChange={onPaginationChange}
