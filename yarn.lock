@@ -823,24 +823,31 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.0.tgz#6734f8ebc106a0860dff7f92bf90df193f0935d7"
   integrity sha512-zrsUxjLOKAzdewIDRWy9nsV1GQsKBCWaGwsZQlCgr6/q+vjyZhFgqedLfFBuI9anTPEUT4APq9Mu0SZBTzIcGQ==
 
-"@prose-reader/core@^0.0.45":
-  version "0.0.45"
-  resolved "https://registry.yarnpkg.com/@prose-reader/core/-/core-0.0.45.tgz#8f372d40c772380cd582e379a9e983da3c01cf20"
-  integrity sha512-UqdKr0oLqo12w5w/aylTBrq7GkbQwbKSjON+e6lwlyypG6NQLMt5XwPNzawEMC05z9VXyF17EuJSLCjgIAy1jQ==
+"@prose-reader/core@^0.0.46":
+  version "0.0.46"
+  resolved "https://registry.yarnpkg.com/@prose-reader/core/-/core-0.0.46.tgz#28cb13d908a7282dc1ab1451cacac6c5b3b2282c"
+  integrity sha512-IG74sTYhwcjRZgS3eI0iA1YIa9M96GqWYgXvrHpMO6s4cxuZGL4z1TCYf6mn6LU77DuRygLD6qxFrDZO6ys57A==
   dependencies:
     "@prose-reader/shared" "^0.0.6"
 
-"@prose-reader/enhancer-bookmarks@^0.0.23":
-  version "0.0.23"
-  resolved "https://registry.yarnpkg.com/@prose-reader/enhancer-bookmarks/-/enhancer-bookmarks-0.0.23.tgz#f548e3685579c8943ee45b464147141ade395c19"
-  integrity sha512-gLxVcpp6k41T3cd4tnhyrfMh5CYbJMBbYuEsrejDzB1xanwgKqr6ZgVvQkP2ex6O2w+iW7ihpWIniNws1s1WJw==
+"@prose-reader/enhancer-bookmarks@^0.0.24":
+  version "0.0.24"
+  resolved "https://registry.yarnpkg.com/@prose-reader/enhancer-bookmarks/-/enhancer-bookmarks-0.0.24.tgz#25782380161fb748fe6930438320578ad03080fd"
+  integrity sha512-jn9begvldtHdMayciC5qBD73h4HaAP9mHCC1xjNyIUY6AaxkBhPa9XdF+C3VEXJO9NMQxiL78+bgLAy4VzJFFA==
   dependencies:
     "@prose-reader/enhancer-scripts" "^0.0.5"
 
-"@prose-reader/enhancer-highlights@^0.0.19":
-  version "0.0.19"
-  resolved "https://registry.yarnpkg.com/@prose-reader/enhancer-highlights/-/enhancer-highlights-0.0.19.tgz#ba3aec009799126fdef5f20666c617eee6dea542"
-  integrity sha512-dhg8E2isMMJYUMpF2yQAG6EsOoFq3y0FmAl2kyZp57N4F/yZznf/Yt4D31qqC0+NFi2TZza2GhzyDUzK6HLYFg==
+"@prose-reader/enhancer-hammer-gesture@^0.0.20":
+  version "0.0.20"
+  resolved "https://registry.yarnpkg.com/@prose-reader/enhancer-hammer-gesture/-/enhancer-hammer-gesture-0.0.20.tgz#9d5610c3de7b864747b80dd0a1443dbfaf1b3a2a"
+  integrity sha512-mFBCfMfG06FRtOSEtalHmMD0X9xzYau4Dq5SU+l9zkS8nO6+9DGbKJm6qhMG2qOfgWaQbnSNWkybuJog9JhrBQ==
+  dependencies:
+    "@prose-reader/enhancer-scripts" "^0.0.5"
+
+"@prose-reader/enhancer-highlights@^0.0.20":
+  version "0.0.20"
+  resolved "https://registry.yarnpkg.com/@prose-reader/enhancer-highlights/-/enhancer-highlights-0.0.20.tgz#935938d07edcc5e6eba9b6f1b62561d527b3be36"
+  integrity sha512-rt8kBCfqgfXlNBtGGD09ktahatfxcbG8UDT1eDeYNY4e4pjBMvzuqScWgzpP8ttOLRIrsAZesCCnr+nM83FXDg==
   dependencies:
     "@prose-reader/enhancer-scripts" "^0.0.5"
 
@@ -861,17 +868,17 @@
     webpack-cli "^4.9.1"
     yargs "^17.3.1"
 
-"@prose-reader/enhancer-search@^0.0.19":
-  version "0.0.19"
-  resolved "https://registry.yarnpkg.com/@prose-reader/enhancer-search/-/enhancer-search-0.0.19.tgz#f4ff6a3641eedf1cfefa2617aa5fd3bc15fcdf64"
-  integrity sha512-Irz+Pstw5KmhUieB/8w/eNTXPhp45Ilv3C1Et6+Ve7KFjsdcRAxIoWVfKc/M3LZzMAjWnhsqzCZQzEGI6hewMw==
+"@prose-reader/enhancer-search@^0.0.20":
+  version "0.0.20"
+  resolved "https://registry.yarnpkg.com/@prose-reader/enhancer-search/-/enhancer-search-0.0.20.tgz#2a55fa1383afda7667b080a3687fcaf8705012e7"
+  integrity sha512-ze9BACWTj1ChvOW/fPG5hCFHxZcslm5drNKG7NSwGfRJrQcn7JIXNMPGlj9yzyxPCmY2sO0XV7u49EJ0v3tgnQ==
   dependencies:
     "@prose-reader/enhancer-scripts" "^0.0.5"
 
-"@prose-reader/react@^0.0.25":
-  version "0.0.25"
-  resolved "https://registry.yarnpkg.com/@prose-reader/react/-/react-0.0.25.tgz#dfdca88b316eb3ef9edaa5f114f711f95e5a042b"
-  integrity sha512-45ytJEtaCw510XBHWD9rwgg9KHLTwDMhKQle30JH4uFK8Ysb6WGZLD2uiSFYHdIwwevJn6Hi1lW4nXfsi4ANgg==
+"@prose-reader/react@^0.0.26":
+  version "0.0.26"
+  resolved "https://registry.yarnpkg.com/@prose-reader/react/-/react-0.0.26.tgz#ebdf8db0d221d95d1a9de15c2e0bf720455882f9"
+  integrity sha512-vo+napUIf6kaSYf/BSl9ybOaG6bFIn/lpFM3Mk/6gdH3GX3qs0wWY8qfOzITDupKzJEe1n3Beft7vriV88xGpw==
 
 "@prose-reader/shared@^0.0.6":
   version "0.0.6"

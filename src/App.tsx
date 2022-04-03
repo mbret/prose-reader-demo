@@ -18,7 +18,7 @@ import { ChakraProvider, ColorModeProvider } from "@chakra-ui/react"
 import { theme } from './theme'
 import { ReaderInstance } from './types'
 import { takeUntil } from 'rxjs'
-import { readerSettingsState, readerStateState } from './state'
+import { isZoomingState, readerSettingsState, readerStateState } from './state'
 import { Report } from './report'
 import { ErrorBoundary } from './common/ErrorBoundary'
 
@@ -62,6 +62,7 @@ export const App = () => {
 const Effects: FC<{ reader: ReaderInstance | undefined }> = ({ reader }) => {
   const setReaderSettingsState = useSetRecoilState(readerSettingsState)
   const setReaderStateState = useSetRecoilState(readerStateState)
+  const setIsZoomingState = useSetRecoilState(isZoomingState)
 
   useEffect(() => {
     reader?.$.settings$
@@ -77,7 +78,9 @@ const Effects: FC<{ reader: ReaderInstance | undefined }> = ({ reader }) => {
         Report.log(`reader.$.state$`, state)
         setReaderStateState(state)
       })
-  }, [reader])
+
+      reader?.zoom.$.isZooming$.subscribe(setIsZoomingState)
+  }, [reader, setIsZoomingState])
 
   return null
 }

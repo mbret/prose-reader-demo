@@ -39,7 +39,7 @@ export const TocDialog = ({ onExit, isOpen }: { onExit: () => void, isOpen: bool
         </div>
       </ListItem>
       {tocItem.contents.length > 0 && (
-        <List component="div" spacing={2}>
+        <List as="div" spacing={2}>
           {tocItem.contents.map((tocItem, index) => buildTocForItem(tocItem, index, lvl + 1))}
         </List>
       )}

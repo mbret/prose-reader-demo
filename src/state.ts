@@ -1,5 +1,5 @@
 import { atom, selector, useRecoilCallback } from "recoil";
-import { Reader, Manifest } from "@prose-reader/core";
+import { Manifest } from "@prose-reader/core";
 import { useEffect } from "react";
 import { ReaderInstance } from "./types";
 import { ObservedValueOf } from "rxjs";
@@ -95,6 +95,11 @@ export const currentPageState = selector({
     if (renditionLayout === 'reflowable') return beginPageIndexInChapter
     return beginSpineItemIndex
   }
+})
+
+export const isZoomingState = atom<boolean>({
+  key: `isZoomingState`,
+  default: false
 })
 
 const statesToReset = [
