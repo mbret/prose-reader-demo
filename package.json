@@ -15,9 +15,9 @@
     "tsc": "tsc"
   },
   "dependencies": {
-    "@chakra-ui/icons": "^1.0.17",
-    "@chakra-ui/react": "^1.8.1",
-    "@emotion/react": "^11.7.1",
+    "@chakra-ui/icons": "^1.1.7",
+    "@chakra-ui/react": "^1.8.7",
+    "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@prose-reader/core": "^0.0.45",
     "@prose-reader/enhancer-bookmarks": "^0.0.23",
@@ -31,7 +31,7 @@
     "@types/react-router-dom": "^5.3.3",
     "copy-webpack-plugin": "^10.2.4",
     "css-loader": "^6.7.1",
-    "framer-motion": "^5.6.0",
+    "framer-motion": "^6",
     "hammerjs": "^2.0.8",
     "jszip": "^3.7.1",
     "localforage": "^1.10.0",
