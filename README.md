@@ -1,7 +1,7 @@
 # prose-reader-demo
 Official demo project using https://github.com/mbret/prose-reader. It showcase capabilities of the engine and its plugins together with what can be done to provide full reading experience to the user.
 
-It is made with React and can be used as example of how to integrate the engine.
+It is made with React and can be used as an example of how to integrate the engine.
 
 ## Resources
 - engine https://github.com/mbret/prose-reader
