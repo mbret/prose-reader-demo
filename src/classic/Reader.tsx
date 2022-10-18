@@ -1,33 +1,41 @@
-import React, { ComponentProps, useCallback, useState } from 'react';
+import React, { ComponentProps, useCallback, useState } from "react"
 import { useEffect } from "react"
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { useGestureHandler } from "./useGestureHandler";
-import { Reader as ReactReader } from "@prose-reader/react";
-import { composeEnhancer } from "@prose-reader/core";
-import { QuickMenu } from '../QuickMenu';
-import { bookReadyState, isHelpOpenState, isMenuOpenState, isSearchOpenState, isTocOpenState, manifestState, paginationState, useResetStateOnUnMount } from '../state';
-import { ClassicSettings } from './ClassicSettings'
-import { Loading } from '../Loading';
-import { ReaderInstance } from '../types';
-import { useBookmarks } from '../useBookmarks';
-import { useReader } from '../ReaderProvider';
-import { useManifest } from '../useManifest';
-import { useParams } from 'react-router';
-import { BookError } from '../BookError';
-import { getEpubUrlFromLocation } from '../serviceWorker/utils';
-import { HighlightMenu } from '../HighlightMenu';
-import { useHighlights } from '../useHighlights';
-import { useSearch } from '../useSearch';
-import { SearchDialog } from '../SearchDialog';
-import { TocDialog } from '../TocDialog';
-import { HelpDialog } from '../HelpDialog';
-import { bookmarksEnhancer } from '@prose-reader/enhancer-bookmarks';
-
-type ReactReaderProps = ComponentProps<typeof ReactReader>
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
+import { useGestureHandler } from "./useGestureHandler"
+import { Reader as ReactReader } from "@prose-reader/react"
+import { composeEnhancer } from "@prose-reader/core"
+import { QuickMenu } from "../QuickMenu"
+import {
+  bookReadyState,
+  isHelpOpenState,
+  isMenuOpenState,
+  isSearchOpenState,
+  isTocOpenState,
+  manifestState,
+  paginationState,
+  useResetStateOnUnMount
+} from "../state"
+import { ClassicSettings } from "./ClassicSettings"
+import { Loading } from "../Loading"
+import { ReactReaderProps, ReaderInstance } from "../types"
+import { useBookmarks } from "../useBookmarks"
+import { useManifest } from "../useManifest"
+import { useParams } from "react-router"
+import { BookError } from "../BookError"
+import { getEpubUrlFromLocation } from "../serviceWorker/utils"
+import { HighlightMenu } from "../HighlightMenu"
+import { useHighlights } from "../useHighlights"
+import { useSearch } from "../useSearch"
+import { SearchDialog } from "../SearchDialog"
+import { TocDialog } from "../TocDialog"
+import { HelpDialog } from "../HelpDialog"
+import { bookmarksEnhancer } from "@prose-reader/enhancer-bookmarks"
+import { useReaderValue } from "../useReader"
+import { useReaderSettings } from "../common/useReaderSettings"
 
 export const Reader = ({ onReader }: { onReader: (instance: ReaderInstance | undefined) => void }) => {
-  const { url = `` } = useParams<`url`>();
-  const reader = useReader()
+  const { url = `` } = useParams<`url`>()
+  const reader = useReaderValue()
   const setManifestState = useSetRecoilState(manifestState)
   const [container, setContainer] = useState<HTMLElement | undefined>(undefined)
   const setPaginationState = useSetRecoilState(paginationState)
@@ -39,15 +47,16 @@ export const Reader = ({ onReader }: { onReader: (instance: ReaderInstance | und
   const [isSearchOpen, setIsSearchOpen] = useRecoilState(isSearchOpenState)
   const [isTocOpen, setIsTocOpen] = useRecoilState(isTocOpenState)
   const [isHelpOpen, setIsHelpOpen] = useRecoilState(isHelpOpenState)
-  const [readerOptions] = useState<ReactReaderProps['options']>({
+  const [readerOptions] = useState<ReactReaderProps["options"]>({
     // fontScale: parseFloat(localStorage.getItem(`fontScale`) || `1`),
     // lineHeight: parseFloat(localStorage.getItem(`lineHeight`) || ``) || undefined,
-    theme: undefined,
-    pageTurnAnimation: `slide`,
-    layoutAutoResize: `container`
+    // theme: undefined,
+    pageTurnAnimation: `fade`,
+    layoutAutoResize: `container`,
+    numberOfAdjacentSpineItemToPreLoad: 0
   })
 
-  const [readerLoadOptions, setReaderLoadOptions] = useState<ReactReaderProps['loadOptions']>(undefined)
+  const [readerLoadOptions, setReaderLoadOptions] = useState<ReactReaderProps["loadOptions"]>(undefined)
   const { manifest, error: manifestError } = useManifest(url)
 
   useGestureHandler(container)
@@ -56,7 +65,7 @@ export const Reader = ({ onReader }: { onReader: (instance: ReaderInstance | und
   // compose final enhancer
   const readerEnhancer = highlightsEnhancer ? composeEnhancer(highlightsEnhancer, bookmarksEnhancer, searchEnhancer) : undefined
 
-  const onPaginationChange: ComponentProps<typeof ReactReader>['onPaginationChange'] = (info) => {
+  const onPaginationChange: ComponentProps<typeof ReactReader>["onPaginationChange"] = (info) => {
     localStorage.setItem(`cfi`, info?.beginCfi || ``)
     setPaginationState(info)
   }
@@ -69,13 +78,13 @@ export const Reader = ({ onReader }: { onReader: (instance: ReaderInstance | und
 
   useEffect(() => {
     const linksSubscription = reader?.$.links$.subscribe((data) => {
-      if (data.event === 'linkClicked') {
+      if (data.event === "linkClicked") {
         if (!data.data.href) return
         const url = new URL(data.data.href)
         if (window.location.host !== url.host) {
           const response = confirm(`You are going to be redirected to external link`)
           if (response) {
-            window.open(data.data.href, '__blank')
+            window.open(data.data.href, "__blank")
           }
         }
       }
@@ -95,18 +104,18 @@ export const Reader = ({ onReader }: { onReader: (instance: ReaderInstance | und
   useEffect(() => {
     if (manifest) {
       setReaderLoadOptions({
-        cfi: localStorage.getItem(`cfi`) || undefined,
-        numberOfAdjacentSpineItemToPreLoad: 0
+        cfi: localStorage.getItem(`cfi`) || undefined
       })
     }
   }, [manifest, setReaderLoadOptions])
 
   useEffect(() => {
+    if (!reader) return
+
     return () => {
-      reader?.destroy()
-      if (reader) {
-        onReader(undefined)
-      }
+      reader.destroy()
+
+      onReader(undefined)
     }
   }, [reader, onReader])
 
@@ -120,9 +129,9 @@ export const Reader = ({ onReader }: { onReader: (instance: ReaderInstance | und
       <div
         style={{
           height: `100%`,
-          width: `100%`,
+          width: `100%`
         }}
-        ref={ref => {
+        ref={(ref) => {
           if (ref) {
             setContainer(ref)
           }
@@ -139,19 +148,11 @@ export const Reader = ({ onReader }: { onReader: (instance: ReaderInstance | und
             enhancer={readerEnhancer}
           />
         )}
-        {manifestError && (
-          <BookError url={getEpubUrlFromLocation(url)} />
-        )}
-        {!bookReady && !manifestError && (
-          <Loading />
-        )}
+        {manifestError && <BookError url={getEpubUrlFromLocation(url)} />}
+        {!bookReady && !manifestError && <Loading />}
       </div>
       <HighlightMenu />
-      <QuickMenu
-        open={isMenuOpen}
-        isComics={false}
-        onSettingsClick={() => setIsSettingsOpen(true)}
-      />
+      <QuickMenu open={isMenuOpen} isComics={false} onSettingsClick={() => setIsSettingsOpen(true)} />
       {reader && <ClassicSettings reader={reader} open={isSettingsOpen} onExit={onClassicSettingsExit} />}
       <SearchDialog isOpen={isSearchOpen} onExit={() => setIsSearchOpen(false)} />
       <TocDialog isOpen={isTocOpen} onExit={() => setIsTocOpen(false)} />

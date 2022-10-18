@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { ReaderInstance } from "./types";
-import { createHighlightsEnhancer } from "@prose-reader/enhancer-highlights";
-import { tap } from "rxjs/operators";
-import { useSetRecoilState } from "recoil";
-import { currentHighlight, isMenuOpenState } from "./state";
+import { useEffect, useState } from "react"
+import { ReaderInstance } from "./types"
+import { createHighlightsEnhancer } from "@prose-reader/enhancer-highlights"
+import { tap } from "rxjs/operators"
+import { useSetRecoilState } from "recoil"
+import { currentHighlight, isMenuOpenState } from "./state"
 
 export const useHighlights = (reader: ReaderInstance | undefined) => {
   const [enhancer, setEnhancer] = useState<ReturnType<typeof createHighlightsEnhancer> | undefined>(undefined)
@@ -13,7 +13,7 @@ export const useHighlights = (reader: ReaderInstance | undefined) => {
   useEffect(() => {
     const readerSubscription = reader?.$.selection$
       .pipe(
-        tap(data => {
+        tap((data) => {
           if (data?.toString() !== ``) {
             const anchorCfi = data?.getAnchorCfi()
             const focusCfi = data?.getFocusCfi()
@@ -37,7 +37,7 @@ export const useHighlights = (reader: ReaderInstance | undefined) => {
 
   useEffect(() => {
     const subscription = reader?.highlights.$.pipe(
-      tap(event => {
+      tap((event) => {
         if (event.type === `onHighlightClick`) {
           setCurrentSelection(event.data)
           setMenuOpenState(false)
@@ -47,7 +47,7 @@ export const useHighlights = (reader: ReaderInstance | undefined) => {
           const toStore = event.data.map(({ anchorCfi, focusCfi }) => ({ anchorCfi, focusCfi }))
           localStorage.setItem(`highlights`, JSON.stringify(toStore))
         }
-      }),
+      })
     ).subscribe()
 
     return () => {

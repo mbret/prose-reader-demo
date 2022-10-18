@@ -1,8 +1,8 @@
-import { atom, selector, useRecoilCallback } from "recoil";
-import { Reader, Manifest } from "@prose-reader/core";
-import { useEffect } from "react";
-import { ReaderInstance } from "./types";
-import { ObservedValueOf } from "rxjs";
+import { atom, selector, useRecoilCallback } from "recoil"
+import { Manifest } from "@prose-reader/core"
+import { useEffect } from "react"
+import { ReaderInstance } from "./types"
+import { ObservedValueOf } from "rxjs"
 
 export const isSearchOpenState = atom({
   key: `isSearchOpenState`,
@@ -36,17 +36,12 @@ export const manifestState = atom<Manifest | undefined>({
   default: undefined
 })
 
-export const paginationState = atom<ObservedValueOf<ReaderInstance['$']['pagination$']> | undefined>({
+export const paginationState = atom<ObservedValueOf<ReaderInstance["$"]["pagination$"]> | undefined>({
   key: `paginationState`,
   default: undefined
 })
 
-export const readerSettingsState = atom<ObservedValueOf<ReaderInstance['$']['settings$']> | undefined>({
-  key: `readerSettingsState`,
-  default: undefined
-})
-
-export const readerStateState = atom<ObservedValueOf<ReaderInstance['$']['state$']> | undefined>({
+export const readerStateState = atom<ObservedValueOf<ReaderInstance["$"]["state$"]> | undefined>({
   key: `readerStateState`,
   default: undefined
 })
@@ -57,14 +52,12 @@ export const isComicState = selector({
     const manifest = get(manifestState)
 
     return (
-      manifest?.renditionLayout === 'pre-paginated'
-      || manifest?.spineItems.every(item => item.renditionLayout === 'pre-paginated')
+      manifest?.renditionLayout === "pre-paginated" ||
+      manifest?.spineItems.every((item) => item.renditionLayout === "pre-paginated") ||
       // webtoon
-      || (
-        manifest?.renditionFlow === `scrolled-continuous`
-        && manifest.renditionLayout === `reflowable`
-        && manifest?.spineItems.every(item => item.mediaType?.startsWith(`image/`))
-      )
+      (manifest?.renditionFlow === `scrolled-continuous` &&
+        manifest.renditionLayout === `reflowable` &&
+        manifest?.spineItems.every((item) => item.mediaType?.startsWith(`image/`)))
     )
   }
 })
@@ -74,7 +67,7 @@ export const isMenuOpenState = atom({
   default: false
 })
 
-export const currentHighlight = atom<{ anchorCfi: string, focusCfi: string, text?: string, id?: number } | undefined>({
+export const currentHighlight = atom<{ anchorCfi: string; focusCfi: string; text?: string; id?: number } | undefined>({
   key: `currentHighlightState`,
   default: undefined
 })
@@ -92,23 +85,26 @@ export const currentPageState = selector({
     const { renditionLayout } = get(manifestState) || {}
     const { beginPageIndexInChapter, beginSpineItemIndex } = get(paginationState) || {}
 
-    if (renditionLayout === 'reflowable') return beginPageIndexInChapter
+    if (renditionLayout === "reflowable") return beginPageIndexInChapter
     return beginSpineItemIndex
   }
 })
 
-const statesToReset = [
-  isMenuOpenState,
-  paginationState,
-  manifestState,
-  bookReadyState,
-  currentHighlight,
-]
+export const isZoomingState = atom<boolean>({
+  key: `isZoomingState`,
+  default: false
+})
+
+const statesToReset = [isMenuOpenState, paginationState, manifestState, bookReadyState, currentHighlight]
 
 export const useResetStateOnUnMount = () => {
-  const resetStates = useRecoilCallback(({ reset }) => () => {
-    statesToReset.forEach(state => reset(state))
-  }, [])
+  const resetStates = useRecoilCallback(
+    ({ reset }) =>
+      () => {
+        statesToReset.forEach((state) => reset(state))
+      },
+    []
+  )
 
   useEffect(() => {
     return () => resetStates()

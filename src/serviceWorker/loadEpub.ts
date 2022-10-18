@@ -1,8 +1,8 @@
-import { loadAsync } from 'jszip'
-import { Report } from '../report'
-import { createArchiveFromText, Archive, createArchiveFromJszip } from '@prose-reader/core-streamer'
-import localforage from 'localforage'
-import { getEpubFilenameFromUrl } from './utils'
+import { loadAsync } from "jszip"
+import { Report } from "../report"
+import { createArchiveFromText, Archive, createArchiveFromJszip } from "@prose-reader/streamer"
+import localforage from "localforage"
+import { getEpubFilenameFromUrl } from "./utils"
 
 let loading = false
 let archive: Archive | undefined = undefined
@@ -30,7 +30,7 @@ export const loadEpub = async (url: string) => {
     return archive
   }
   if (loading) {
-    return new Promise<Archive>(resolve => {
+    return new Promise<Archive>((resolve) => {
       setTimeout(async () => {
         resolve(await loadEpub(url))
       }, 100)
@@ -39,7 +39,7 @@ export const loadEpub = async (url: string) => {
   loading = true
   archive = undefined
   const responseOrFile = url.startsWith(`file://`)
-    ? (await localforage.getItem<File>(getEpubFilenameFromUrl(url)))
+    ? await localforage.getItem<File>(getEpubFilenameFromUrl(url))
     : await fetch(url)
 
   if (!responseOrFile) {

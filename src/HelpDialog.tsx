@@ -1,10 +1,10 @@
-import { List, ListIcon, ListItem } from '@chakra-ui/react'
-import React from 'react'
-import { useRecoilValue } from 'recoil'
-import { paginationState } from './state'
-import { FullScreenModal } from './common/FullScreenModal'
+import { List, ListIcon, ListItem } from "@chakra-ui/react"
+import React from "react"
+import { useRecoilValue } from "recoil"
+import { paginationState } from "./state"
+import { FullScreenModal } from "./common/FullScreenModal"
 
-export const HelpDialog = ({ onExit, isOpen }: { onExit: () => void, isOpen: boolean }) => {
+export const HelpDialog = ({ onExit, isOpen }: { onExit: () => void; isOpen: boolean }) => {
   const pagination = useRecoilValue(paginationState)
 
   let currentSubChapter = pagination?.beginChapterInfo

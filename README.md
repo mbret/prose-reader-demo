@@ -1,11 +1,31 @@
-### Use custom local epubs
+# prose-reader-demo
+Official demo project using https://github.com/mbret/prose-reader. It showcase capabilities of the engine and its plugins together with what can be done to provide full reading experience to the user.
 
-Drop your epub or any book in `/public/epubs`
+It is made with React and can be used as example of how to integrate the engine.
 
-run this command in your console.
+## Resources
+- engine https://github.com/mbret/prose-reader
+- demo website https://demo.prose-reader.com/
+- official documentation https://docs.prose-reader.com/
+- official discord https://discord.gg/avcf3Hf6hx
+
+## Installation
 
 ```
-btoa(`${window.location.origin}/epubs/myEpub.epub`)
+yarn
 ```
 
-Now you can use the hash to load your custom book.
+## Development
+If you wish to work on prose core through this project you need to have the repo https://github.com/mbret/prose-reader cloned and its packages linked locally. Then run:
+
+```
+yarn dev:link-all
+```
+
+To start the project run:
+```
+yarn start
+```
+
+## Work on your own book
+If you wish to try out, debug or develop for a specific book you can visit http://localhost:9000/classic and upload your own book which you can then open

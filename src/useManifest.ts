@@ -10,21 +10,20 @@ export const useManifest = (epubUrl: string) => {
   useEffect(() => {
     setManifest(undefined)
     setError(undefined)
+    ;(async () => {
+      try {
+        const response = await fetch(`${window.location.origin}/${STREAMER_URL_PREFIX}/${epubUrl}/manifest`, {
+          mode: `no-cors`
+        })
+        const bookManifest: Manifest = await response.json()
+        setManifest(bookManifest)
 
-      ; (async () => {
-        try {
-          const response = await fetch(`${window.location.origin}/${STREAMER_URL_PREFIX}/${epubUrl}/manifest`, {
-            mode: `no-cors`
-          })
-          const bookManifest: Manifest = await response.json()
-          setManifest(bookManifest)
-
-          Report.log(`manifest`, bookManifest)
-        } catch (e: any) {
-          setManifest(undefined)
-          setError(e as any)
-        }
-      })()
+        Report.log(`manifest`, bookManifest)
+      } catch (e: any) {
+        setManifest(undefined)
+        setError(e as any)
+      }
+    })()
   }, [epubUrl])
 
   return { manifest, error }

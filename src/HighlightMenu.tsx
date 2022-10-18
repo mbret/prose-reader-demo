@@ -1,12 +1,12 @@
-import React, { useCallback } from 'react'
-import { useRecoilState } from 'recoil'
-import { Button } from './common/Button'
-import { useCSS } from './common/css'
-import { useReader } from './ReaderProvider'
-import { currentHighlight } from './state'
+import React, { useCallback } from "react"
+import { useRecoilState } from "recoil"
+import { Button } from "./common/Button"
+import { useCSS } from "./common/css"
+import { currentHighlight } from "./state"
+import { useReaderValue } from "./useReader"
 
 export const HighlightMenu = () => {
-  const reader = useReader()
+  const reader = useReaderValue()
   const [currentSelection, setCurrentSelection] = useRecoilState(currentHighlight)
   const isCurrentSelectionSaved = currentSelection?.id !== undefined
   const styles = useStyles()
@@ -40,31 +40,35 @@ export const HighlightMenu = () => {
   )
 }
 
-const useStyles = () => useCSS(() => ({
-  container: {
-    position: `absolute`,
-    left: 0,
-    bottom: 0,
-    width: `100%`,
-    height: 100,
-    backgroundColor: 'chocolate',
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  subContainer: {
-    paddingLeft: 10,
-    width: `100%`,
-    color: 'white',
-    height: `100%`,
-    overflow: 'hidden'
-  },
-  text: {
-    // @see https://css-tricks.com/flexbox-truncated-text/
-    // white-space: nowrap;
-    overflow: 'hidden',
-    height: 30,
-    textOverflow: 'ellipsis',
-  }
-}), [])
+const useStyles = () =>
+  useCSS(
+    () => ({
+      container: {
+        position: `absolute`,
+        left: 0,
+        bottom: 0,
+        width: `100%`,
+        height: 100,
+        backgroundColor: "chocolate",
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center"
+      },
+      subContainer: {
+        paddingLeft: 10,
+        width: `100%`,
+        color: "white",
+        height: `100%`,
+        overflow: "hidden"
+      },
+      text: {
+        // @see https://css-tricks.com/flexbox-truncated-text/
+        // white-space: nowrap;
+        overflow: "hidden",
+        height: 30,
+        textOverflow: "ellipsis"
+      }
+    }),
+    []
+  )
