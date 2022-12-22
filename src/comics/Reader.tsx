@@ -8,14 +8,13 @@ import { bookReadyState, isMenuOpenState, manifestState, paginationState, useRes
 import { ComicsSettings } from "./ComicsSettings"
 import { Loading } from "../Loading"
 import { useBookmarks } from "../useBookmarks"
-import { useManifest } from "../useManifest"
 import { useParams } from "react-router"
 import { BookError } from "../BookError"
 import { getEpubUrlFromLocation } from "../serviceWorker/utils"
 import { HighlightMenu } from "../HighlightMenu"
 import { bookmarksEnhancer } from "@prose-reader/enhancer-bookmarks"
 import { ZoomingIndicator } from "../common/ZoomingIndicator"
-import { composeEnhancer } from "@prose-reader/core"
+import { composeEnhancer, Manifest } from "@prose-reader/core"
 import { hammerGestureEnhancer } from "@prose-reader/enhancer-hammer-gesture"
 import { ReactReaderProps, ReaderInstance } from "../types"
 import { useReaderValue } from "../useReader"
@@ -23,7 +22,15 @@ import { useReaderSettings } from "../common/useReaderSettings"
 
 const readerEnhancer = composeEnhancer(hammerGestureEnhancer, bookmarksEnhancer)
 
-export const Reader = ({ onReader }: { onReader: (instance: ReaderInstance | undefined) => void }) => {
+export const Reader = ({
+  onReader,
+  manifest,
+  manifestError
+}: {
+  onReader: (instance: ReaderInstance | undefined) => void
+  manifest?: Manifest | undefined
+  manifestError?: unknown
+}) => {
   const { url = `` } = useParams<`url`>()
   const query = new URLSearchParams(window.location.search)
   const { computedPageTurnMode } = useReaderSettings() ?? {}
@@ -37,7 +44,6 @@ export const Reader = ({ onReader }: { onReader: (instance: ReaderInstance | und
   const isMenuOpen = useRecoilValue(isMenuOpenState)
   const [readerOptions, setReaderOptions] = useState<ReactReaderProps["options"] | undefined>(undefined)
   const [readerLoadOptions, setReaderLoadOptions] = useState<ReactReaderProps["loadOptions"]>(undefined)
-  const { manifest, error: manifestError } = useManifest(url)
 
   useBookmarks(reader, url)
   const hammerManager = useGestureHandler(container, isUsingFreeScroll)
@@ -114,7 +120,7 @@ export const Reader = ({ onReader }: { onReader: (instance: ReaderInstance | und
             enhancer={readerEnhancer}
           />
         )}
-        {manifestError && <BookError url={getEpubUrlFromLocation(url)} />}
+        {!!manifestError && <BookError url={getEpubUrlFromLocation(url)} />}
         {!bookReady && !manifestError && <Loading />}
       </div>
       <HighlightMenu />

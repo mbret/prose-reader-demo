@@ -3,7 +3,7 @@ import { useEffect } from "react"
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
 import { useGestureHandler } from "./useGestureHandler"
 import { Reader as ReactReader } from "@prose-reader/react"
-import { composeEnhancer } from "@prose-reader/core"
+import { composeEnhancer, Manifest } from "@prose-reader/core"
 import { QuickMenu } from "../QuickMenu"
 import {
   bookReadyState,
@@ -19,7 +19,6 @@ import { ClassicSettings } from "./ClassicSettings"
 import { Loading } from "../Loading"
 import { ReactReaderProps, ReaderInstance } from "../types"
 import { useBookmarks } from "../useBookmarks"
-import { useManifest } from "../useManifest"
 import { useParams } from "react-router"
 import { BookError } from "../BookError"
 import { getEpubUrlFromLocation } from "../serviceWorker/utils"
@@ -31,9 +30,16 @@ import { TocDialog } from "../TocDialog"
 import { HelpDialog } from "../HelpDialog"
 import { bookmarksEnhancer } from "@prose-reader/enhancer-bookmarks"
 import { useReaderValue } from "../useReader"
-import { useReaderSettings } from "../common/useReaderSettings"
 
-export const Reader = ({ onReader }: { onReader: (instance: ReaderInstance | undefined) => void }) => {
+export const Reader = ({
+  onReader,
+  manifest,
+  manifestError
+}: {
+  onReader: (instance: ReaderInstance | undefined) => void
+  manifest?: Manifest | undefined
+  manifestError?: unknown
+}) => {
   const { url = `` } = useParams<`url`>()
   const reader = useReaderValue()
   const setManifestState = useSetRecoilState(manifestState)
@@ -57,7 +63,6 @@ export const Reader = ({ onReader }: { onReader: (instance: ReaderInstance | und
   })
 
   const [readerLoadOptions, setReaderLoadOptions] = useState<ReactReaderProps["loadOptions"]>(undefined)
-  const { manifest, error: manifestError } = useManifest(url)
 
   useGestureHandler(container)
   useBookmarks(reader, url)
@@ -148,7 +153,7 @@ export const Reader = ({ onReader }: { onReader: (instance: ReaderInstance | und
             enhancer={readerEnhancer}
           />
         )}
-        {manifestError && <BookError url={getEpubUrlFromLocation(url)} />}
+        {!!manifestError && <BookError url={getEpubUrlFromLocation(url)} />}
         {!bookReady && !manifestError && <Loading />}
       </div>
       <HighlightMenu />

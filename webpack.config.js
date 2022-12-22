@@ -51,7 +51,7 @@ module.exports = {
     extensions: [".tsx", ".ts", ".js"],
     fallback: {
       // https://github.com/lddubeau/saxes
-      stream: path.resolve(__dirname, `src/streamer/streamShim.js`)
+      stream: require.resolve("stream-browserify")
     }
   },
   output: {

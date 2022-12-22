@@ -143,7 +143,7 @@ export const Home = () => {
             {uploadedBooks.map(({ name }) => (
               <Tr key={name}>
                 <Td>
-                  <Link to={`/classic/reader/${btoa(`file://epubs/${name}`)}`} as={RouterLink}>
+                  <Link to={`/reader/${btoa(`file://epubs/${name}`)}`} as={RouterLink}>
                     {name}
                   </Link>
                 </Td>
@@ -174,7 +174,7 @@ export const Home = () => {
             {items.map(({ name, type }) => (
               <Tr key={name}>
                 <Td>
-                  <Link to={`/classic/reader/${btoa(`${window.location.origin}/epubs/${name}`)}`} as={RouterLink}>
+                  <Link to={`/reader/${btoa(`${window.location.origin}/epubs/${name}`)}`} as={RouterLink}>
                     {name}
                   </Link>
                 </Td>

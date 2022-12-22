@@ -10,7 +10,7 @@ export const Home = () => {
     {
       imageUrl: `${window.location.origin}/haruko-cover.jpg`,
       imageAlt: "",
-      link: `/comics/reader/${btoa(`${window.location.origin}/epubs/haruko-comic.zip`)}`,
+      link: `/reader/${btoa(`${window.location.origin}/epubs/haruko-comic.zip`)}`,
       beds: 3,
       baths: 2,
       title: "Manga, horizontal scrolling",
@@ -21,7 +21,7 @@ export const Home = () => {
     {
       imageUrl: `${window.location.origin}/haruko-cover.jpg`,
       imageAlt: "",
-      link: `/comics/reader/${btoa(`${window.location.origin}/epubs/haruko-comic.zip`)}?vertical`,
+      link: `/reader/${btoa(`${window.location.origin}/epubs/haruko-comic.zip`)}?vertical`,
       beds: 3,
       baths: 2,
       title: "Manga, vertical scrolling",
@@ -32,7 +32,7 @@ export const Home = () => {
     {
       imageUrl: `${window.location.origin}/haruko-cover.jpg`,
       imageAlt: "",
-      link: `/comics/reader/${btoa(`${window.location.origin}/epubs/haruko-comic.zip`)}?free&vertical`,
+      link: `/reader/${btoa(`${window.location.origin}/epubs/haruko-comic.zip`)}?free&vertical`,
       beds: 3,
       baths: 2,
       title: "Manga, vertical free scrolling",
@@ -43,7 +43,7 @@ export const Home = () => {
     {
       imageUrl: `${window.location.origin}/haruko-cover.jpg`,
       imageAlt: "",
-      link: `/comics/reader/${btoa(`${window.location.origin}/epubs/rendition-flow-webtoon-one-page.epub`)}?free&vertical`,
+      link: `/reader/${btoa(`${window.location.origin}/epubs/rendition-flow-webtoon-one-page.epub`)}?free&vertical`,
       beds: 3,
       baths: 2,
       title: "Webtoon (one big image), vertical free scrolling",
@@ -54,7 +54,7 @@ export const Home = () => {
     {
       imageUrl: `${window.location.origin}/haruko-cover.jpg`,
       imageAlt: "",
-      link: `/comics/reader/${btoa(`${window.location.origin}/epubs/rendition-flow-webtoon.epub`)}?free&vertical`,
+      link: `/reader/${btoa(`${window.location.origin}/epubs/rendition-flow-webtoon.epub`)}?free&vertical`,
       beds: 3,
       baths: 2,
       title: "Webtoon, vertical free scrolling",
