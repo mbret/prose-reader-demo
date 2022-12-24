@@ -6,8 +6,11 @@ import React from "react"
 import { createRoot } from "react-dom/client"
 import { RecoilRoot } from "recoil"
 import { App } from "./App"
+import { QueryClient, QueryClientProvider } from "react-query"
 
 const container = document.getElementById("app")
+
+const queryClient = new QueryClient()
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
@@ -20,7 +23,9 @@ if ("serviceWorker" in navigator) {
         root.render(
           <React.StrictMode>
             <RecoilRoot>
-              <App />
+              <QueryClientProvider client={queryClient}>
+                <App />
+              </QueryClientProvider>
             </RecoilRoot>
           </React.StrictMode>
         )

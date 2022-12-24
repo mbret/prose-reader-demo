@@ -1,13 +1,13 @@
-import React, { FC, memo, useCallback, useEffect, useState } from "react"
+import React, { memo } from "react"
 import { ReaderInstance } from "./types"
 import { useManifest } from "./useManifest"
 import { Reader as ClassicReader } from "./classic/Reader"
 import { Reader as ComicsReader } from "./comics/Reader"
 import { useParams } from "react-router-dom"
 
-export const Reader = ({ onReader }: { onReader: (instance: ReaderInstance | undefined) => void }) => {
+export const Reader = memo(({ onReader }: { onReader: (instance: ReaderInstance | undefined) => void }) => {
   const { url = `` } = useParams<`url`>()
-  const { manifest, error: manifestError } = useManifest(url)
+  const { data: manifest, error: manifestError } = useManifest(url)
 
   return (
     <>
@@ -16,4 +16,4 @@ export const Reader = ({ onReader }: { onReader: (instance: ReaderInstance | und
       {manifest?.renditionLayout === "reflowable" && <ClassicReader onReader={onReader} manifest={manifest} />}
     </>
   )
-}
+})

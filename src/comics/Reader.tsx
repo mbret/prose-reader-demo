@@ -56,7 +56,8 @@ export const Reader = ({
         pageTurnMode: query.has("free") ? `scrollable` : `controlled`,
         layoutAutoResize: `container`,
         hammerManager,
-        numberOfAdjacentSpineItemToPreLoad: 1
+        // cover portrait and spread mode without blank page
+        numberOfAdjacentSpineItemToPreLoad: 2
       })
     }
   }, [hammerManager])
